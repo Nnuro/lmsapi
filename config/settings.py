@@ -37,7 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'apps',
+    # 'djangorestframework',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rest_framework_nested',
+    'apps.users',
 ]
 
 MIDDLEWARE = [
@@ -49,6 +53,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+AUTH_USER_MODEL = 'users.User'
 
 ROOT_URLCONF = 'config.urls'
 
@@ -70,6 +76,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
+#Django restframework
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
@@ -120,5 +134,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# Media config
+MEDIA_ROOT = 'media'
+MEDIA_URL = '/media/'
+
 #configure email
-EMAIL_HOST = 'test.littlms@gmial.com'
+EMAIL_HOST = 'test.littlms@gmail.com'
