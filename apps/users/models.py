@@ -50,7 +50,8 @@ class CustomUserManager(BaseUserManager):
     #         email,
     #         password=password,
     #     )
-    #     user.is_admin = True
+    #     user.is_individual = True
+    #     user.is_student = True
     #     user.save(using=self._db)
     #     return user
 
