@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'rest_framework_nested',
     'apps.users',
     'apps.courses',
+    'apps.certificate',
+    'apps.badge',
 ]
 
 MIDDLEWARE = [
