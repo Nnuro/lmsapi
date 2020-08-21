@@ -14,22 +14,9 @@ class CustomUserManager(BaseUserManager):
 
         user = self.model(
             email=self.normalize_email(email),
-            # first_name = self.models.CharField(max_length=100),
-            # last_name = self.models.CharField(max_length=100)
         )
 
-        user.is_individual = True
         user.set_password(password)
-        user.save(using=self._db)
-        return user
-
-
-    def create_individual(self, email, password=None):
-        user = self.create_user(
-            email,
-            password=password,
-        )
-        user.is_admin = True
         user.save(using=self._db)
         return user
 
@@ -39,20 +26,54 @@ class CustomUserManager(BaseUserManager):
             password=password,
         )
         user.is_admin = True
+        user.is_staff = True
         user.save(using=self._db)
         return user
+    # def create_user(self, email, password=None):
+    #     if not email:
+    #         raise ValueError('Users must have an email address')
 
-    def create_company(self, email, password=None):
-        user = self.create_user(
-            email,
-            password=password,
-        )
+    #     user = self.model(
+    #         email=self.normalize_email(email),
+    #         # first_name = self.models.CharField(max_length=100),
+    #         # last_name = self.models.CharField(max_length=100)
+    #     )
 
-        company_name = models.CharField(max_length=100)
+    #     user.is_student = True
+    #     user.set_password(password)
+    #     user.save(using=self._db)
+    #     return user
 
-        user.is_company = True
-        user.save(using=self._db)
-        return user
+
+    # def create_individual(self, email, password=None):
+    #     user = self.create_user(
+    #         email,
+    #         password=password,
+    #     )
+    #     user.is_admin = True
+    #     user.save(using=self._db)
+    #     return user
+
+    # def create_superuser(self, email, password=None):
+    #     user = self.create_user(
+    #         email,
+    #         password=password,
+    #     )
+    #     user.is_admin = True
+    #     user.save(using=self._db)
+    #     return user
+
+    # def create_company(self, email, password=None):
+    #     user = self.create_user(
+    #         email,
+    #         password=password,
+    #     )
+
+    #     company_name = models.CharField(max_length=100)
+
+    #     user.is_company = True
+    #     user.save(using=self._db)
+    #     return user
 
 
 class User(AbstractBaseUser):
@@ -73,7 +94,7 @@ class User(AbstractBaseUser):
     def __str__(self):
         return self.email
 
-    def has_perm(self, perm, obj=None):
+    def has_perms(self, perm, obj=None):
         "Does the user have a specific permission?"
         # Simplest possible answer: Yes, always
         return True
@@ -92,7 +113,6 @@ class UserProfile(models.Model):
     )
     # preferred_name = models.CharField(max_length=100)
     image = models.ImageField(upload_to='profile-images')
-    # image = models.ImageField(upload_to='profile-images')
 
     # LEVELS = (
     #     (1, 'Level One'),
