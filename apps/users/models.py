@@ -86,6 +86,9 @@ class User(AbstractBaseUser):
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     is_company = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
+    is_employee = models.BooleanField(default=False)
+    is_individual = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
 
@@ -94,7 +97,7 @@ class User(AbstractBaseUser):
     def __str__(self):
         return self.email
 
-    def has_perms(self, perm, obj=None):
+    def has_perm(self, perm, obj=None):
         "Does the user have a specific permission?"
         # Simplest possible answer: Yes, always
         return True
