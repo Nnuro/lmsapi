@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     # 'djangorestframework',
     'rest_framework',
     'rest_framework.authtoken',
-    'rest_framework_nested',
+    # 'rest_framework_nested',
     'apps.users',
 ]
 
