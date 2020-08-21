@@ -20,6 +20,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/lms/users/', include('apps.users.urls')),
     path('api/lms/courses/', include('apps.courses.urls')),
+    path('api/lms/certificate/', include('apps.certificate.urls')),
+    path('api/lms/badge/', include('apps.badge.urls')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
     ## other routes
 ]
