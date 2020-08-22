@@ -6,11 +6,11 @@ from .models import User, UserProfile
 
 
 class UserAdmin(BaseUserAdmin):
-    list_display = ('email', 'is_student', 'is_admin')
-    list_filter = ('is_student', 'is_admin')
+    list_display = ('email', 'student_type', 'is_admin')
+    list_filter = ('student_type', 'is_admin')
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
-        ('Permissions', {'fields': ('is_student', 'is_admin', 'is_staff')}),
+        ('Permissions', {'fields': ('student_type', 'is_admin', 'is_staff')}),
     )
 
     add_fieldsets = (

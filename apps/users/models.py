@@ -29,52 +29,6 @@ class CustomUserManager(BaseUserManager):
         user.is_staff = True
         user.save(using=self._db)
         return user
-    # def create_user(self, email, password=None):
-    #     if not email:
-    #         raise ValueError('Users must have an email address')
-
-    #     user = self.model(
-    #         email=self.normalize_email(email),
-    #         # first_name = self.models.CharField(max_length=100),
-    #         # last_name = self.models.CharField(max_length=100)
-    #     )
-
-    #     user.is_student = True
-    #     user.set_password(password)
-    #     user.save(using=self._db)
-    #     return user
-
-
-    # def create_individual(self, email, password=None):
-    #     user = self.create_user(
-    #         email,
-    #         password=password,
-    #     )
-    #     user.is_individual = True
-    #     user.is_student = True
-    #     user.save(using=self._db)
-    #     return user
-
-    # def create_superuser(self, email, password=None):
-    #     user = self.create_user(
-    #         email,
-    #         password=password,
-    #     )
-    #     user.is_admin = True
-    #     user.save(using=self._db)
-    #     return user
-
-    # def create_company(self, email, password=None):
-    #     user = self.create_user(
-    #         email,
-    #         password=password,
-    #     )
-
-    #     company_name = models.CharField(max_length=100)
-
-    #     user.is_company = True
-    #     user.save(using=self._db)
-    #     return user
 
 
 class User(AbstractBaseUser):
@@ -83,13 +37,10 @@ class User(AbstractBaseUser):
         max_length=255,
         unique=True,
     )
-    is_student = models.BooleanField(default=False)
+    student_type = models.CharField(default='individual', max_length=10)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
-    is_company = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
-    is_employee = models.BooleanField(default=False)
-    is_individual = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
 
