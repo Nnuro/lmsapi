@@ -25,9 +25,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'k(1mumqm#pn^5pf&+44o8lz*3-ajm((v51x@o130k0x7u@2jto'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["https://littlmsapi.herokuapp.com/"]
 
 
 # Application definition
