@@ -21,10 +21,11 @@ jwt==1.0.0
 Markdown==3.2.2
 mccabe==0.6.1
 mysql-client==0.0.1
-# mysqlclient @ /sitefiles/mysqlclient-1.4.6-cp37-cp37m-win32.whl
+# mysqlclient @ file:///C:/Users/ADMIN/Desktop/projects/liit/LMS/LMSAPI/sitefiles/mysqlclient-1.4.6-cp37-cp37m-win32.whl
 oauthlib==3.1.0
 Pillow==7.2.0
 psycopg2==2.7.7
+psycopg2-binary==2.8.5
 pycodestyle==2.6.0
 pycparser==2.20
 pyflakes==2.2.0
