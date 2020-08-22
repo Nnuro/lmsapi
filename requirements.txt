@@ -1,5 +1,5 @@
 asgiref==3.2.7
-pip install gcc7==0.0.9
+gcc7==0.0.9
 certifi==2020.6.20
 cffi==1.14.2
 chardet==3.0.4
