@@ -104,7 +104,7 @@ REST_FRAMEWORK = {
     # Authentication Scheme
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
     ),
     # Permission Policies
@@ -124,13 +124,25 @@ REST_FRAMEWORK = {
     
 # }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'k25DSFnXJL',
+#         'USER': 'k25DSFnXJL',
+#         'PASSWORD': 'LRPiEkjAyT',
+#         'HOST': 'remotemysql.com',
+#         'PORT': '3306',
+#     }
+# s}
+
+#Revert to localhost for effective testing
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'k25DSFnXJL',
-        'USER': 'k25DSFnXJL',
-        'PASSWORD': 'LRPiEkjAyT',
-        'HOST': 'remotemysql.com',
+        'NAME': 'lmsapi',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': 'localhost',
         'PORT': '3306',
     }
 }
@@ -178,7 +190,16 @@ MEDIA_ROOT = 'media'
 MEDIA_URL = '/media/'
 
 #configure email
-EMAIL_HOST = 'test.littlms@gmail.com'
+# EMAIL_HOST = 'test.littlms@gmail.com'
+# Configure SMTP
+ACCOUNT_ACTIVATION_DAYS = 1
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'test.littlms@gmail.com'
+EMAIL_HOST_PASSWORD = 'litt2020'
 
 
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
@@ -186,5 +207,7 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_USERNAME_REQUIRED = False
+
+AUTH_PROFILE_MODULE = 'users.UserProfile'
 
 django_heroku.settings(locals())
