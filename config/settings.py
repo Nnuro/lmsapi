@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 # Configure Django App for Heroku.
-import django_heroku
+# import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -40,14 +40,24 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # 'djangorestframework',
+    # Authentication
     'rest_framework',
     'rest_framework.authtoken',
     'rest_framework_nested',
+    'rest_auth',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'rest_auth.registration',
+     # Custom App routes
     'apps.users',
     'apps.courses',
     'apps.certificate',
     'apps.badge',
 ]
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -90,6 +100,19 @@ WSGI_APPLICATION = 'config.wsgi.application'
 #     ]
 # }
 
+REST_FRAMEWORK = {
+    # Authentication Scheme
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+    # Permission Policies
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ]
+}
+
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
@@ -104,10 +127,10 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'lmsapi',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': 'localhost',
+        'NAME': 'k25DSFnXJL',
+        'USER': 'k25DSFnXJL',
+        'PASSWORD': 'LRPiEkjAyT',
+        'HOST': 'remotemysql.com',
         'PORT': '3306',
     }
 }
@@ -157,4 +180,10 @@ MEDIA_URL = '/media/'
 #configure email
 EMAIL_HOST = 'test.littlms@gmail.com'
 
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
+
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_USERNAME_REQUIRED = False

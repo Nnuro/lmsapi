@@ -6,6 +6,7 @@ from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser
 )
 
+from apps.badge.models import Badge
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None):
@@ -15,7 +16,7 @@ class CustomUserManager(BaseUserManager):
         user = self.model(
             email=self.normalize_email(email),
         )
-
+        username = models.CharField(_('username'), max_length=30, blank=True)
         user.set_password(password)
         user.save(using=self._db)
         return user
@@ -31,7 +32,7 @@ class CustomUserManager(BaseUserManager):
         return user
 
 
-class User(AbstractBaseUser):
+class User(AbstractBaseUser, models.Model):
     email = models.EmailField(
         verbose_name='email address',
         max_length=255,
@@ -41,6 +42,7 @@ class User(AbstractBaseUser):
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
+    # student_badge = models.ForeignKey(Badge, related_name='badges', on_delete=models.CASCADE)
 
     USERNAME_FIELD = 'email'
 
