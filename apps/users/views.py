@@ -105,13 +105,19 @@ class UserProfileSerializer(serializers.ModelSerializer):
         fields = ('__all__')
 
 
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
+# @api_view(["GET", "POST"])
+# @csrf_exempt
+# @permission_classes([IsAuthenticated])
 class UserViewSet(viewsets.ModelViewSet):
     queryset = get_user_model().objects.all()
     serializer_class = UserSerializer
 
 
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
+# @api_view(["GET", "POST", "PUT"])
+# @csrf_exempt
+# @permission_classes([IsAuthenticated])
 class UserProfileView(APIView):
     def get(self, request, pk):
         profile = UserProfile.objects.get(user=request.user)
