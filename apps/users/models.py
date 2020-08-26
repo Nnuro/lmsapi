@@ -6,15 +6,19 @@ from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser
 )
 
+from apps.badge.models import Badge
+
 
 class CustomUserManager(BaseUserManager):
-    def create_user(self, email, password=None):
+    def create_user(self, firstname, lastname, email, password=None):
         if not email:
             raise ValueError('Users must have an email address')
 
         user = self.model(
             email=self.normalize_email(email),
+
         )
+        username = models.CharField(('username'), max_length=30, blank=True)
 
         user.set_password(password)
         user.save(using=self._db)
@@ -31,13 +35,16 @@ class CustomUserManager(BaseUserManager):
         return user
 
 
-class User(AbstractBaseUser):
+class User(AbstractBaseUser, models.Model):
     email = models.EmailField(
         verbose_name='email address',
         max_length=255,
         unique=True,
     )
-    student_type = models.CharField(default='individual', max_length=10)
+
+    firstname = models.CharField(max_length=50)
+    lastname = models.CharField(max_length=50)
+    student_type = models.CharField(default='individual', max_length=15)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
@@ -67,16 +74,13 @@ class UserProfile(models.Model):
         primary_key=True,
     )
     # preferred_name = models.CharField(max_length=100)
-    image = models.ImageField(upload_to='profile-images')
+    image = models.ImageField(upload_to='profile-images', null=True)
 
-    # LEVELS = (
-    #     (1, 'Level One'),
-    #     (2, 'Level Two'),
-    # )
-    # current_level = models.IntegerField(choices=LEVELS)
-
-    phone = models.CharField(max_length=50)
-    timezone = models.CharField(max_length=50)
+    phone = models.CharField(max_length=50, null=True)
+    timezone = models.CharField(max_length=50, null=True)
+    location = models.CharField(max_length=60, null=True)
+    linkedIn_address = models.CharField(max_length=60, null=True)
+    facebook_address = models.CharField(max_length=60, null=True)
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
