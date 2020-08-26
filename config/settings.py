@@ -56,7 +56,6 @@ INSTALLED_APPS = [
     'apps.badge',
 ]
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 SITE_ID = 1
 
 MIDDLEWARE = [
