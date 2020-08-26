@@ -1,41 +1,23 @@
-from django.shortcuts import render
 from rest_framework import serializers, viewsets
 from django.contrib.auth import get_user_model
 
 from .models import User, UserProfile
 # # Create your views here.
 from rest_framework.views import APIView
-from rest_framework.decorators import permission_classes
-from rest_framework.permissions import IsAuthenticated, DjangoModelPermissions
 from rest_framework.response import Response
 
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated
 from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth.decorators import login_required
 
 
-from django.contrib import messages
-from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
-from django.template.loader import render_to_string
 from .tokens import account_activation_token
-from django.http import HttpResponse
 
 from django.core.mail import send_mail
 from config import settings
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 
-
-@api_view(["GET"])
-@csrf_exempt
-@permission_classes([IsAuthenticated])
-def welcome(request):
-    content = {"message": "Welcome to the To the LMS API!"}
-    return JsonResponse(content)
 
 
 def activate(request, uidb64, token):
@@ -58,7 +40,8 @@ def activate(request, uidb64, token):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
-        fields = ('id', 'firstname', 'lastname', 'email', 'password', 'student_type')
+        fields = ('id', 'firstname', 'lastname',
+                  'email', 'password', 'student_type')
         extra_kwargs = {'password': {'write_only': True, 'min_length': 8}}
 
     def create(self, validated_data):
