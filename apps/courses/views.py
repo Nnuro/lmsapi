@@ -11,7 +11,8 @@ class CourseLectureSerializer(serializers.ModelSerializer):
         model = Course
         fields = ('id', 'title', 'description', 'date', 'duration',
                   'resource_url', 'is_required', 'video_url', 
-                  'course_content_one', 'course_content_two')
+                  'course_content_one', 'course_content_two',
+                   'course_content_three', 'course_content_four',)
 
 
 class CourseViewSet(viewsets.ModelViewSet):
