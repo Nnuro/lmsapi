@@ -56,7 +56,7 @@ INSTALLED_APPS = [
     'apps.badge',
 ]
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 SITE_ID = 1
 
 MIDDLEWARE = [
@@ -103,9 +103,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 REST_FRAMEWORK = {
     # Authentication Scheme
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.BasicAuthentication',
+        # 'rest_framework.authentication.BasicAuthentication',
         # 'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.TokenAuthentication',
+        # 'rest_framework.authentication.TokenAuthentication',
+        "django.contrib.auth.backends.ModelBackend",
+        "allauth.account.auth_backends.AuthenticationBackend"
     ),
     # Permission Policies
     'DEFAULT_PERMISSION_CLASSES': [
