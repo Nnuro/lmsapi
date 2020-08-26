@@ -26,9 +26,9 @@ urlpatterns = [
     path('api/lms/certificates/', include('apps.certificate.urls')), # Get all certificates
     path('api/lms/badge/', include('apps.badge.urls')), #Get all badges
     path('accounts/activate/<slug:uidb64>/<slug:token>/', activate, name='activate'), # Activate your account via email
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')), # Defualt rest authentication
+    # path('api-auth/', include('rest_framework.urls', namespace='rest_framework')), # Defualt rest authentication
     path('', include('rest_auth.urls')),
     path('api/lms/register/', include('rest_auth.registration.urls')), # Register an account unused
-    # path('api/lms/profile/update', UserProfileView.as_view(), name='update profile'), # Register an account unused
+    path('api/lms/profile/update', UserProfileView.as_view(), name='update profile'), # Update Profile
 ]
 

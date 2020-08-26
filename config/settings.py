@@ -109,7 +109,7 @@ REST_FRAMEWORK = {
     ),
     # Permission Policies
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.AllowAny',
     ]
 }
 
@@ -124,28 +124,28 @@ REST_FRAMEWORK = {
     
 # }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'k25DSFnXJL',
-#         'USER': 'k25DSFnXJL',
-#         'PASSWORD': 'LRPiEkjAyT',
-#         'HOST': 'remotemysql.com',
-#         'PORT': '3306',
-#     }
-# s}
-
-#Revert to localhost for effective testing
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'lmsapi',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': 'localhost',
+        'NAME': 'k25DSFnXJL',
+        'USER': 'k25DSFnXJL',
+        'PASSWORD': 'LRPiEkjAyT',
+        'HOST': 'remotemysql.com',
         'PORT': '3306',
     }
 }
+
+#Revert to localhost for effective testing
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'lmsapi',
+#         'USER': 'root',
+#         'PASSWORD': '',
+#         'HOST': 'localhost',
+#         'PORT': '3306',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -209,5 +209,8 @@ ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_USERNAME_REQUIRED = False
 
 AUTH_PROFILE_MODULE = 'users.UserProfile'
+
+
+APPEND_SLASH=False
 
 django_heroku.settings(locals())
