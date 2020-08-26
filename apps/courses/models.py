@@ -15,8 +15,19 @@ class Course( models.Model):
     course_content_three = models.TextField(null=True)
     course_content_four = models.TextField(null=True)
     course_content_five = models.TextField(null=True)
+
     date = models.DateField()
+
     duration = models.IntegerField(help_text='Enter number of hours', null=True)
-    video_url = models.CharField(max_length=255, null=True)
-    resource_url = models.CharField(max_length=255, null=True)
+
+
+    video1_url = models.CharField(max_length=255, null=True)
+    video2_url = models.CharField(max_length=255, null=True)
+    video3_url = models.CharField(max_length=255, null=True)
+
+
+    resource1_url = models.CharField(max_length=255, null=True)
+    resource2_url = models.CharField(max_length=255, null=True)
+    resource3_url = models.CharField(max_length=255, null=True)
+
     is_required = models.BooleanField(default=True, null=True)

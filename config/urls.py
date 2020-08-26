@@ -17,8 +17,10 @@ from django.contrib import admin
 from django.urls import path, include
 from apps.users import views
 from apps.users.views import activate, UserProfileView
+from django.conf import settings
 # from apps.users.views import ConfirmEmailView
 
+    
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/lms/users/', include('apps.users.urls')), # Get all users
@@ -32,3 +34,8 @@ urlpatterns = [
     path('api/lms/profile/update', UserProfileView.as_view(), name='update profile'), # Update Profile
 ]
 
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns
