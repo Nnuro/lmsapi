@@ -10,7 +10,7 @@ from apps.badge.models import Badge
 
 
 class CustomUserManager(BaseUserManager):
-    def create_user(self, firstname, lastname, email, password=None):
+    def create_user(self, email, password=None): #firstname, lastname,
         if not email:
             raise ValueError('Users must have an email address')
 
@@ -42,8 +42,8 @@ class User(AbstractBaseUser, models.Model):
         unique=True,
     )
 
-    firstname = models.CharField(max_length=50)
-    lastname = models.CharField(max_length=50)
+    # firstname = models.CharField(max_length=50)
+    # lastname = models.CharField(max_length=50)
     student_type = models.CharField(default='individual', max_length=15)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)

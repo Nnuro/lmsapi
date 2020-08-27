@@ -12,6 +12,10 @@ from django.http import JsonResponse
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from .tokens import account_activation_token
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
 
 from django.core.mail import send_mail
 from config import settings
@@ -40,7 +44,7 @@ def activate(request, uidb64, token):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
-        fields = ('id', 'firstname', 'lastname',
+        fields = ('id', #'firstname', 'lastname',
                   'email', 'password', 'student_type')
         extra_kwargs = {'password': {'write_only': True, 'min_length': 8}}
 
@@ -100,7 +104,7 @@ class UserViewSet(viewsets.ModelViewSet):
 # @permission_classes([IsAuthenticated])
 # @api_view(["GET", "POST", "PUT"])
 # @csrf_exempt
-# @permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 class UserProfileView(APIView):
     def get(self, request, pk):
         profile = UserProfile.objects.get(user=request.user)
