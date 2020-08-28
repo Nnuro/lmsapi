@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.template.loader import render_to_string
 from django.dispatch import receiver
 from django.core.mail import EmailMultiAlternatives
-from rest_framework import serializers, viewsets
+from rest_framework import serializers, viewsets, generics, status
 from django.contrib.auth import get_user_model
 
 from .models import User, UserProfile
@@ -27,14 +27,13 @@ from config import settings
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 
-from rest_framework import status
-from rest_framework import generics
-from rest_framework.response import Response
-from django.contrib.auth import get_user_model
 from .serializers import ChangePasswordSerializer
+from django.contrib.sites.shortcuts import get_current_site
 
 
-
+    # ========================#
+    # Activate account (email verify)
+    # ========================#
 def activate(request, uidb64, token):
     try:
         uid = force_text(urlsafe_base64_decode(uidb64))
@@ -45,10 +44,14 @@ def activate(request, uidb64, token):
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
         user.save()
-        content = {"message": "Your account has been confirmed"}
+        content = {
+            "message": "Your account has been confirmed"
+            }
         return JsonResponse(content)
     else:
-        content = {"message": "Your account acitvation is invalid"}
+        content = {
+            "message": "Your account acitvation is invalid"
+        }
         return JsonResponse(content)
 
 
@@ -67,7 +70,7 @@ class UserSerializer(serializers.ModelSerializer):
 
         user.save()
 
-        current_site = '127.0.0.1'
+        current_site = get_current_site()
 
         subject = 'Activate Your LMS Account'
         message = {
@@ -82,8 +85,7 @@ class UserSerializer(serializers.ModelSerializer):
         send_mail(
             subject,
             # 'Please Activate your account' + message.token,
-            'http://127.0.0.1:8000/accounts/activate/' + \
-            message['uid'] + '/' + message['token'] + '/',
+            current_site + '/accounts/activate/' + '/' + message['token'] + '/',
             email_from,
             [user.email],
             fail_silently=False
@@ -117,10 +119,9 @@ class UserProfileView(APIView):
         serializer = UserProfileSerializer(profile)
         return Response(serializer.data)
 
+
 # ==================================================
-
             #CHANGE PASSWORD
-
 # ==================================================
 
 class ChangePasswordView(generics.UpdateAPIView):
@@ -172,43 +173,12 @@ def password_reset_token_created(sender, instance, reset_password_token, *args, 
     :param kwargs:
     :return:
     """
-    # send an e-mail to the user
-    # context = {
-    #     'current_user': reset_password_token.user,
-    #     # 'username': reset_password_token.user.email,
-    #     'email': reset_password_token.user.email,
-    #     'reset_password_url': "{}?token={}".format(reverse('password_reset:reset-password-request'), reset_password_token.key)
-    # }
 
     email_plaintext_message = "{}?token={}".format(reverse('password_reset:reset-password-request'), reset_password_token.key)
-    # render email text
-    # email_html_message = render_to_string(
-    #     'email/user_reset_password.html', context)
-    # email_plaintext_message = render_to_string(
-    #     'email/user_reset_password.txt', context)
 
-    # msg = EmailMultiAlternatives(
-    #     # title:
-    #     "Password Reset for {title}".format(title="Some website title"),
-    #     # message:
-    #     email_plaintext_message,
-    #     # from:
-    #     "noreply@somehost.local",
-    #     # to:
-    #     [reset_password_token.user.email]
-    # )
-    # msg.attach_alternative(email_html_message, "text/html")
-    # msg.send()
+    current_site = get_current_site()
 
-    current_site = '127.0.0.1'
-
-    subject = "Password Reset for {title}".format(title="LiTT LMS"),
-    # message = {
-    #     'user': reset_password_token.user,
-    #     'domain': current_site,
-    #     'uid': urlsafe_base64_encode(force_bytes(reset_password_token.user.pk)),
-    #     'token': account_activation_token.make_token(reset_password_token.user),
-    # }
+    subject = "Password Reset for {title}".format(title="LiTT LMS")
     
     email_from = settings.EMAIL_HOST_USER
     send_mail(
