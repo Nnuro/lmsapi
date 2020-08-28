@@ -25,7 +25,7 @@ class CourseLectureSerializer(serializers.ModelSerializer):
 
 # @api_view(["GET", "POST", "PUT"])
 # @csrf_exempt
-@permission_classes([IsAuthenticated])
 class CourseViewSet(viewsets.ModelViewSet):
+    permission_classes = (IsAuthenticated,)
     queryset = Course.objects.all()
     serializer_class = CourseLectureSerializer
