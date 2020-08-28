@@ -22,7 +22,10 @@ urlpatterns = [
     path('api/users/', include('apps.users.urls')), # Get all users
 
     # Course data
-    path('api/courses/', include('apps.courses.urls')), #Get all coursers
+    path('api/courses/', include('apps.courses.urls')), #Get all courses
+
+    # Lesson data
+    path('api/lessons/', include('apps.lessons.urls')), #Get all lessons
 
     # Cert data
     path('api/certificates/', include('apps.certificate.urls')), # Get all certificates

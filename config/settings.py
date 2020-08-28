@@ -61,6 +61,7 @@ INSTALLED_APPS = [
      # Custom App routes
     'apps.users',
     'apps.courses',
+    'apps.lessons',
     'apps.certificate',
     'apps.badge',
 ]

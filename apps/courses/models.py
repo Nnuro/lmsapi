@@ -13,7 +13,7 @@ class Course( models.Model):
     course_content_one = models.TextField()
     course_content_two = models.TextField(null=True)
     course_content_three = models.TextField(null=True)
-    course_content_four = models.TextField(null=True)
+    course_content_four = models.TextField(null=True)  
     course_content_five = models.TextField(null=True)
 
     date = models.DateField()
@@ -31,3 +31,6 @@ class Course( models.Model):
     resource3_url = models.CharField(max_length=255, null=True)
 
     is_required = models.BooleanField(default=True, null=True)
+
+    def __str__(self):
+        return self.title
