@@ -210,13 +210,14 @@ ACCOUNT_USERNAME_REQUIRED = False
 AUTH_PROFILE_MODULE = 'users.UserProfile'
 
 
-APPEND_SLASH=False
+# APPEND_SLASH=False
 
 CORS_ORIGIN_ALLOW_ALL = True
 
 INTERNAL_IPS = [
     # ...
     '127.0.0.1',
+    '54.197.91.173'
     # ...
 ]
 
