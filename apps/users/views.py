@@ -58,7 +58,7 @@ def activate(request, uidb64, token):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
-        fields = ('id', #'firstname', 'lastname',
+        fields = ('id', 'firstname', 'lastname',
                   'email', 'password', 'student_type')
         extra_kwargs = {'password': {'write_only': True, 'min_length': 8}}
 
@@ -70,7 +70,7 @@ class UserSerializer(serializers.ModelSerializer):
 
         user.save()
 
-        current_site = get_current_site()
+        current_site = 'http//:127.0.0.1'
 
         subject = 'Activate Your LMS Account'
         message = {
@@ -85,7 +85,7 @@ class UserSerializer(serializers.ModelSerializer):
         send_mail(
             subject,
             # 'Please Activate your account' + message.token,
-            current_site + '/accounts/activate/' + '/' + message['token'] + '/',
+            current_site + '/accounts/activate/' + message['uid'] +'/' + message['token'] + '/',
             email_from,
             [user.email],
             fail_silently=False
@@ -105,7 +105,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
         fields = ('__all__')
 
 
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 class UserViewSet(viewsets.ModelViewSet):
     queryset = get_user_model().objects.all()
     serializer_class = UserSerializer
@@ -176,7 +176,7 @@ def password_reset_token_created(sender, instance, reset_password_token, *args, 
 
     email_plaintext_message = "{}?token={}".format(reverse('password_reset:reset-password-request'), reset_password_token.key)
 
-    current_site = get_current_site()
+    current_site = get_current_site(request)
 
     subject = "Password Reset for {title}".format(title="LiTT LMS")
     
