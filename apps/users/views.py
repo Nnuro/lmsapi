@@ -29,6 +29,7 @@ from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 
 from .serializers import ChangePasswordSerializer
 from django.contrib.sites.shortcuts import get_current_site
+from django.http import HttpResponseRedirect
 
 
     # ========================#
@@ -47,7 +48,10 @@ def activate(request, uidb64, token):
         content = {
             "message": "Your account has been confirmed"
             }
-        return JsonResponse(content)
+        # ===============================================
+        #       REDIRECT USER TO THE LMS SIGNIN PAGE
+        # ===============================================
+        return HttpResponseRedirect(redirect_to='http://127.0.0.1:8080/')
     else:
         content = {
             "message": "Your account acitvation is invalid"
@@ -70,7 +74,7 @@ class UserSerializer(serializers.ModelSerializer):
 
         user.save()
 
-        current_site = 'http//:127.0.0.1'
+        current_site = 'http://127.0.0.1'
 
         subject = 'Activate Your LMS Account'
         message = {
@@ -176,7 +180,7 @@ def password_reset_token_created(sender, instance, reset_password_token, *args, 
 
     email_plaintext_message = "{}?token={}".format(reverse('password_reset:reset-password-request'), reset_password_token.key)
 
-    current_site = get_current_site(request)
+    current_site = 'http://127.0.0.1'
 
     subject = "Password Reset for {title}".format(title="LiTT LMS")
     
