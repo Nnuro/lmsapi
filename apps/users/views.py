@@ -51,7 +51,7 @@ def activate(request, uidb64, token):
         # ===============================================
         #       REDIRECT USER TO THE LMS SIGNIN PAGE
         # ===============================================
-        return HttpResponseRedirect(redirect_to='http://127.0.0.1:8080/')
+        return HttpResponseRedirect(redirect_to='http://127.0.0.1:8080/signin')
     else:
         content = {
             "message": "Your account acitvation is invalid"
