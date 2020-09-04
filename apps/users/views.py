@@ -74,7 +74,7 @@ class UserSerializer(serializers.ModelSerializer):
 
         user.save()
 
-        current_site = 'http://127.0.0.1'
+        current_site = 'https://littapi.herokuapp.com/'
 
         subject = 'Activate Your LMS Account'
         message = {
@@ -180,7 +180,7 @@ def password_reset_token_created(sender, instance, reset_password_token, *args, 
 
     email_plaintext_message = "{}?token={}".format(reverse('password_reset:reset-password-request'), reset_password_token.key)
 
-    current_site = 'http://127.0.0.1'
+    current_site = 'https://littapi.herokuapp.com'
 
     subject = "Password Reset for {title}".format(title="LiTT LMS")
     
