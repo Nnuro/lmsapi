@@ -51,7 +51,7 @@ def activate(request, uidb64, token):
         # ===============================================
         #       REDIRECT USER TO THE LMS SIGNIN PAGE
         # ===============================================
-        return HttpResponseRedirect(redirect_to='https://littweb.herokuapp.com/signin')
+        return HttpResponseRedirect(redirect_to='https://littweb.herokuapp.com')
     else:
         content = {
             "message": "Your account acitvation is invalid"
@@ -74,7 +74,7 @@ class UserSerializer(serializers.ModelSerializer):
 
         user.save()
 
-        current_site = 'https://littapi.herokuapp.com/'
+        current_site = 'https://littapi.herokuapp.com'
 
         subject = 'Activate Your LMS Account'
         message = {
