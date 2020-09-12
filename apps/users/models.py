@@ -10,25 +10,38 @@ from apps.badge.models import Badge
 
 
 class CustomUserManager(BaseUserManager):
-    def create_user(self, email, password=None): #firstname, lastname,
+    def create_user(self, email, firstname, lastname, password=None): #firstname, lastname,
         if not email:
             raise ValueError('Users must have an email address')
 
         user = self.model(
             email=self.normalize_email(email),
-
+            firstname=firstname,
+            lastname=lastname,
         )
+        
+        if not email:
+            raise ValueError('Users must have an email address')
+        if not firstname:
+            raise ValueError('Users must have an firstname')
+        if not lastname:
+            raise ValueError('Users must have an lastname')
+        if not password:
+            raise ValueError('Users must have a password')
+
         username = models.CharField(('username'), max_length=30, blank=True)
 
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, password=None):
-        user = self.create_user(
-            email,
-            password=password,
-        )
+    def create_superuser(self, email, firstname='Admin', lastname='Admin', password=None):
+        """
+         Creates and saves a superuser with the given email and password.
+        """
+        user = self.create_user(email, firstname, lastname,
+                                password=password
+                                )
         user.is_admin = True
         user.is_staff = True
         user.save(using=self._db)
@@ -42,14 +55,16 @@ class User(AbstractBaseUser, models.Model):
         unique=True,
     )
 
-    # firstname = models.CharField(max_length=50)
-    # lastname = models.CharField(max_length=50)
+    firstname = models.CharField(max_length=50)
+    lastname = models.CharField(max_length=50)
     student_type = models.CharField(default='individual', max_length=15)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
+
+    # REQUIRED_FIELDS = ['email']
 
     objects = CustomUserManager()
 
