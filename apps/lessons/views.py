@@ -16,12 +16,12 @@ from .models import Lesson
 class LessonContentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Lesson
-        fields = ('id', 'title', 'description', 'order_number',
-                  'duration','date', 'course', 'lesson_content_one', 
-                  'lesson_content_two', 'lesson_content_three',
-                  'resource1_url', 'resource2_url',
-                  'video1_url', 'video2_url', 'course_content_one',
-                 'course_content_two',)
+        fields = (
+                'id', 'title', 'description', 'lesson_number',
+                'duration', 'date', 'course_module', 'content_one',
+                'content_two', 'content_three',
+                'resource_url', 'video_one', 'video_two'
+                )
 
 
 # @api_view(["GET", "POST", "PUT"])

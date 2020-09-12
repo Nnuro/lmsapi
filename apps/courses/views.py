@@ -17,10 +17,9 @@ class CourseLectureSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
         fields = ('id', 'title', 'description', 'date', 'duration',
-                    'resource1_url', 'resource2_url', 'resource3_url',
-                    'is_required', 'video1_url', 'video2_url' , 'video3_url',
-                    'course_content_one', 'course_content_two',
-                    'course_content_three', 'course_content_four',)
+                    'course_overview', 'resource1_url', 'resource2_url',
+                    'is_required', 'video1_url', 'video2_url',
+                    'course_content_one', 'course_content_two')
 
 
 # @api_view(["GET", "POST", "PUT"])

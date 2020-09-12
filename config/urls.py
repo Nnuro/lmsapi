@@ -24,6 +24,9 @@ urlpatterns = [
     # Course data
     path('api/courses/', include('apps.courses.urls')), #Get all courses
 
+    # Course data
+    path('api/modules/', include('apps.course_modules.urls')), #Get all courses
+
     # Lesson data
     path('api/lessons/', include('apps.lessons.urls')), #Get all lessons
 
