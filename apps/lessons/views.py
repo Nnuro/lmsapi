@@ -22,7 +22,7 @@ class LessonContentSerializer(serializers.ModelSerializer):
                 'content_two', 'content_three',
                 'resource_url', 'video_one', 'video_two'
                 )
-
+ 
 
 # @api_view(["GET", "POST", "PUT"])
 # @csrf_exempt
