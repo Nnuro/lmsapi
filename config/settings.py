@@ -136,28 +136,28 @@ REST_FRAMEWORK = {
 }
 
 # MySQL remote database
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'k25DSFnXJL',
-        'USER': 'k25DSFnXJL',
-        'PASSWORD': 'LRPiEkjAyT',
-        'HOST': 'remotemysql.com',
-        'PORT': '3306',
-    }
-}
-
-#  Running on local host
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'lmsapi',
-#         'USER': 'root',
-#         'PASSWORD': '',
-#         'HOST': '127.0.0.1',
+#         'NAME': 'k25DSFnXJL',
+#         'USER': 'k25DSFnXJL',
+#         'PASSWORD': 'LRPiEkjAyT',
+#         'HOST': 'remotemysql.com',
 #         'PORT': '3306',
 #     }
 # }
+
+#  Running on local host
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'lmsapi',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
