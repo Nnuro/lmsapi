@@ -7,6 +7,8 @@ router = routers.SimpleRouter()
 router.register(r'', UserViewSet)
 # router.register(r'profile/', UserProfileView)
 
+
+## test ##
 urlpatterns = [
     path('', include(router.urls)),
     path('<int:pk>/profile/',
