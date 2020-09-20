@@ -43,10 +43,11 @@ urlpatterns = [
     path('api/register/', include('rest_auth.registration.urls')), # Register an account unused
 
     # User Update Profile info
-    path('api/profile/update', UserProfileView.as_view(), name='update profile'), # Update Profile
+    # path('api/users/profile/<int:pk>/', UserProfileView.as_view(),
+    #      name='update profile'),  # Update Profile
 
-    # User Update Profile info
-    path('api/current', CurrentUserView.as_view(), name='current profile'), # Update Profile
+    # User Data Info
+    path('api/current', CurrentUserView.as_view(), name='current profile'), # Get Current User
 
     # Forgot password
     path('api/password_reset/', include('django_rest_passwordreset.urls', namespace='password_reset')),

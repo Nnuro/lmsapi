@@ -12,7 +12,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 
 from django.http import JsonResponse
-
+from django.core.exceptions import PermissionDenied
 
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
@@ -70,7 +70,7 @@ class UserSerializer(serializers.ModelSerializer):
 
         user.save()
 
-        current_site = 'http//:127.0.0.1'
+        current_site = get_current_site(request)
 
         subject = 'Activate Your LMS Account'
         message = {
@@ -110,6 +110,9 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = get_user_model().objects.all()
     serializer_class = UserSerializer
 
+    def list(self, request, *args, **kwargs):
+        raise PermissionDenied()
+
 
 class CurrentUserView(APIView):
     def get(self, request):
@@ -118,12 +121,22 @@ class CurrentUserView(APIView):
 
 
 
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 class UserProfileView(APIView):
     def get(self, request, pk):
-        profile = UserProfile.objects.get(user=request.user)
+        profile = UserProfile.objects.get(user=pk)
         serializer = UserProfileSerializer(profile)
         return Response(serializer.data)
+
+    def post(self, request, pk):
+        # name, bio, github_username, avatar
+        profile = UserProfile(
+            **request.data
+        )
+        profile.user = get_user_model().objects.get(pk=pk)
+        profile.save()
+        
+        return Response('Success')
 
 
 # ==================================================
