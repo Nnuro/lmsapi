@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include, reverse_lazy
 from apps.users import views
-from apps.users.views import activate, UserProfileView
+from apps.users.views import activate, UserProfileView, CurrentUserView
 from django.conf import settings
 
 from rest_framework_simplejwt.views import (TokenObtainPairView, TokenRefreshView)
@@ -44,6 +44,9 @@ urlpatterns = [
 
     # User Update Profile info
     path('api/profile/update', UserProfileView.as_view(), name='update profile'), # Update Profile
+
+    # User Update Profile info
+    path('api/current', CurrentUserView.as_view(), name='current profile'), # Update Profile
 
     # Forgot password
     path('api/password_reset/', include('django_rest_passwordreset.urls', namespace='password_reset')),
