@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework_simplejwt.token_blacklist',
     'django_rest_passwordreset',
+    'nested_admin',
     #Debug 
     'debug_toolbar',
      # Custom App routes
@@ -65,6 +66,7 @@ INSTALLED_APPS = [
     'apps.lessons',
     'apps.certificate',
     'apps.badge',
+    'apps.practice_test',
 ]
 
 SITE_ID = 1
