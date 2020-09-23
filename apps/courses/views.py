@@ -12,15 +12,18 @@ from django.contrib.auth.decorators import login_required
 
 from .models import Course
 from apps.course_modules.views import CourseModuleSerializer
+from apps.feedback.views import FeedbackSerializer
 
 class CourseLectureSerializer(serializers.ModelSerializer):
     modules = CourseModuleSerializer(many=True)
+    feedback = FeedbackSerializer(many=True)
     class Meta:
         model = Course
-        fields = ('id', 'title', 'description', 'date', 'duration',
-                    'course_overview', 'resource_url', 'modules',
+        fields = (  'id', 'title', 'description', 'date', 'duration',
+                    'course_overview', 'resource_url', 'modules', 'feedback',
                     'is_required', 'video_url', 'course_content_one',
-                    'course_content_two')
+                    'course_content_two'
+                )
 
 
 # @api_view(["GET", "POST", "PUT"])

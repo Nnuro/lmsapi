@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     'apps.lessons',
     'apps.certificate',
     'apps.badge',
+    'apps.feedback',
 ]
 
 SITE_ID = 1

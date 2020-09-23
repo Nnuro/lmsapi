@@ -23,6 +23,8 @@ urlpatterns = [
 
     # Course data
     path('api/courses/', include('apps.courses.urls')), #Get all courses
+    # feedback data
+    path('api/feedback/', include('apps.feedback.urls')), #Get all courses
 
     # Course data
     path('api/modules/', include('apps.course_modules.urls')), #Get all courses
