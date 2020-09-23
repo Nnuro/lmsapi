@@ -66,7 +66,11 @@ INSTALLED_APPS = [
     'apps.lessons',
     'apps.certificate',
     'apps.badge',
+<<<<<<< HEAD
     'apps.practice_test',
+=======
+    'apps.feedback',
+>>>>>>> dev
 ]
 
 SITE_ID = 1
