@@ -92,8 +92,11 @@ class UserProfile(models.Model):
     avatar_url = models.CharField(max_length=255, null=True)
     bio = models.TextField(default='', blank=True)
     phone = models.CharField(max_length=50, null=True)
-    timezone = models.CharField(max_length=50, null=True)
-    location = models.CharField(max_length=60, null=True)
+    profession = models.CharField(default='', null=True, max_length=50)
+    profession_details = models.CharField(default='', null=True, max_length=50)
+    education = models.CharField(default='', null=True, max_length=50)
+    country = models.CharField(max_length=60, null=True)
+    state_region = models.CharField(max_length=60, null=True)
     linkedIn_address = models.CharField(max_length=60, null=True)
     facebook_address = models.CharField(max_length=60, null=True)
 
