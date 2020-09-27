@@ -93,12 +93,13 @@ class UserProfile(models.Model):
     bio = models.TextField(default='', blank=True)
     phone = models.CharField(max_length=50, null=True)
     profession = models.CharField(default='', null=True, max_length=50)
-    profession_details = models.CharField(default='', null=True, max_length=50)
+    profession_info = models.CharField(default='', null=True, max_length=50)
+
     education = models.CharField(default='', null=True, max_length=50)
-    country = models.CharField(max_length=60, null=True)
-    state_region = models.CharField(max_length=60, null=True)
-    linkedIn_address = models.CharField(max_length=60, null=True)
-    facebook_address = models.CharField(max_length=60, null=True)
+    country = models.CharField(default='', max_length=60, null=True)
+    state_region = models.CharField(default='', max_length=60, null=True)
+    linkedIn_address = models.CharField(default='', max_length=60, null=True)
+    facebook_address = models.CharField(default='', max_length=60, null=True)
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'

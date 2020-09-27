@@ -35,3 +35,10 @@ class Lesson(models.Model):
         unique_together = ['course_module', 'title']
         ordering = ['lesson_number']
 
+
+
+# =================================== #
+# Note :
+# lessons order sholud not be unique
+# Meta ordering should be changed to course module
+# =================================== #
