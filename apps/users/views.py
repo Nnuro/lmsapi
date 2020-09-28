@@ -30,7 +30,7 @@ from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from .serializers import ChangePasswordSerializer
 from django.contrib.sites.shortcuts import get_current_site
 
-
+current_site = "https://littapi.herokuapp.com"
     # ========================#
     # Activate account (email verify)
     # ========================#
@@ -70,7 +70,7 @@ class UserSerializer(serializers.ModelSerializer):
 
         user.save()
 
-        current_site = get_current_site(request)
+        # current_site = 'https://littapi.herokuapp.com'
 
         subject = 'Activate Your LMS Account'
         message = {
@@ -195,7 +195,7 @@ def password_reset_token_created(sender, instance, reset_password_token, *args, 
 
     email_plaintext_message = "{}?token={}".format(reverse('password_reset:reset-password-request'), reset_password_token.key)
 
-    current_site = get_current_site(request)
+    # current_site = get_current_site(request)
 
     subject = "Password Reset for {title}".format(title="LiTT LMS")
     

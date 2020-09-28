@@ -96,7 +96,7 @@ class UserProfile(models.Model):
     profession_info = models.CharField(default='', null=True, max_length=50)
 
     education = models.CharField(default='', null=True, max_length=50)
-    country = models.CharField(default='', max_length=60, null=True)
+    location = models.CharField(default='', max_length=60, null=True)
     state_region = models.CharField(default='', max_length=60, null=True)
     linkedIn_address = models.CharField(default='', max_length=60, null=True)
     facebook_address = models.CharField(default='', max_length=60, null=True)
