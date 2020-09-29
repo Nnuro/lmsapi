@@ -24,7 +24,7 @@ class Quiz(models.Model):
 
 class Question(models.Model):
 	quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
-	label = models.CharField(max_length=100)
+	label = models.TextField()
 	order = models.IntegerField(default=0)
 
 	def __str__(self):
@@ -33,7 +33,7 @@ class Question(models.Model):
 
 class Answer(models.Model):
 	question = models.ForeignKey(Question, on_delete=models.CASCADE)
-	label = models.CharField(max_length=100)
+	label = models.CharField(max_length=300)
 	is_correct = models.BooleanField(default=False)
 
 	def __str__(self):
