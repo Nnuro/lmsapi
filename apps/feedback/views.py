@@ -10,23 +10,20 @@ from rest_framework.permissions import IsAuthenticated
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 
-from .models import Lesson
+from .models import Feedback
 
 
-class LessonContentSerializer(serializers.ModelSerializer):
+class FeedbackSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Lesson
+        model = Feedback
         fields = (
-                'id', 'title', 'description', 'lesson_number',
-                'duration', 'date', 'course_module', 'content_one',
-                'content_two', 'content_three',
-                'resource_url', 'video_one', 'video_two'
+                'course', 'message', 'rating'
                 )
  
 
 # @api_view(["GET", "POST", "PUT"])
 # @csrf_exempt
-class LessonViewSet(viewsets.ModelViewSet):
+class FeedbackViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated,)
-    queryset = Lesson.objects.all()
-    serializer_class = LessonContentSerializer
+    queryset = Feedback.objects.all()
+    serializer_class = FeedbackSerializer

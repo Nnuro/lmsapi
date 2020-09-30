@@ -56,14 +56,18 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework_simplejwt.token_blacklist',
     'django_rest_passwordreset',
+    'nested_admin',
     #Debug 
     'debug_toolbar',
      # Custom App routes
     'apps.users',
     'apps.courses',
+    'apps.course_modules',
     'apps.lessons',
     'apps.certificate',
     'apps.badge',
+    'apps.practice_test',
+    'apps.feedback',
 ]
 
 SITE_ID = 1
@@ -135,13 +139,25 @@ REST_FRAMEWORK = {
 }
 
 # MySQL remote database
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'k25DSFnXJL',
+#         'USER': 'k25DSFnXJL',
+#         'PASSWORD': 'LRPiEkjAyT',
+#         'HOST': 'remotemysql.com',
+#         'PORT': '3306',
+#     }
+# }
+
+#  Running on local host
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'k25DSFnXJL',
-        'USER': 'k25DSFnXJL',
-        'PASSWORD': 'LRPiEkjAyT',
-        'HOST': 'remotemysql.com',
+        'NAME': 'lmsapi',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': '127.0.0.1',
         'PORT': '3306',
     }
 }
@@ -210,13 +226,14 @@ ACCOUNT_USERNAME_REQUIRED = False
 AUTH_PROFILE_MODULE = 'users.UserProfile'
 
 
-APPEND_SLASH=False
+# APPEND_SLASH=False
 
 CORS_ORIGIN_ALLOW_ALL = True
 
 INTERNAL_IPS = [
     # ...
     '127.0.0.1',
+    '54.197.91.173'
     # ...
 ]
 
@@ -226,8 +243,8 @@ CORS_ALLOW_HEADERS = list(default_headers) + [
 
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=3),
     'ROTATE_REFRESH_TOKENS': False,
     'BLACKLIST_AFTER_ROTATION': True,
 
@@ -247,8 +264,8 @@ SIMPLE_JWT = {
     'JTI_CLAIM': 'jti',
 
     'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
-    'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
-    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
+    'SLIDING_TOKEN_LIFETIME': timedelta(minutes=15),
+    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=3),
 }
 
 

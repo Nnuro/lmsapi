@@ -3,36 +3,42 @@ from django.db import models
 # Create your models here.
 
 from apps.utils.models import Timestamps
-from apps.courses.models import Course
+from apps.course_modules.models import Course_Module
 
 
 class Lesson(models.Model):
     title = models.CharField(max_length=100, unique=True)
     description = models.TextField()
-    order_number = models.IntegerField(unique=True, null=False)
+    lesson_number = models.IntegerField(unique=True, null=False)
     # lecturer_name = models.CharField(max_length=100, default='',blank=True)
 
-    lesson_content_one = models.TextField()
-    lesson_content_two = models.TextField(null=True)
-    lesson_content_three = models.TextField(null=True)
+    content_one = models.TextField()
+    content_two = models.TextField(null=True, blank=True)
+    content_three = models.TextField(null=True, blank=True)
 
     date = models.DateField(null=True)
 
     duration = models.IntegerField(
         help_text='Enter number of hours', null=True)
 
-    video1_url = models.CharField(max_length=255, null=True)
-    video2_url = models.CharField(max_length=255, null=True)
+    video_one = models.CharField(max_length=255, null=True)
+    video_two = models.CharField(max_length=255, null=True, blank=True)
 
-    resource1_url = models.CharField(max_length=255, null=True)
-    resource2_url = models.CharField(max_length=255, null=True)
+    resource_url = models.CharField(max_length=255, null=True)
 
-
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    course_module = models.ForeignKey(Course_Module, on_delete=models.CASCADE, related_name='lessons')
 
     def __str__(self):
         return self.title
 
     class Meta:
-        ordering = ['order_number']
+        unique_together = ['course_module', 'title']
+        ordering = ['lesson_number']
 
+
+
+# =================================== #
+# Note :
+# lessons order sholud not be unique
+# Meta ordering should be changed to course module
+# =================================== #
