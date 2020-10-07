@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.urls import path, include, reverse_lazy, re_path
 from apps.users import views
 from apps.users.views import activate, UserProfileView, CurrentUserView
+from apps.lessons.views import LessonStatusViewSet
 from django.conf import settings
 
 from rest_framework_simplejwt.views import (TokenObtainPairView, TokenRefreshView)
@@ -33,6 +34,7 @@ urlpatterns = [
 
     # Lesson data
     path('api/lessons/', include('apps.lessons.urls')), #Get all lessons
+    path('api/lesson/completed/', LessonStatusViewSet.as_view(), name='lesson completed'),  # Get all lessons
 
     # Cert data
     path('api/certificates/', include('apps.certificate.urls')), # Get all certificates
