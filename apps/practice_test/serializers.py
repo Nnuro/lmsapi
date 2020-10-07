@@ -103,6 +103,7 @@ class QuizDetailSerializer(serializers.ModelSerializer):
 				user=self.context['request'].user, quiz=obj)
 			serializer = QuizTakerSerializer(quiz_taker)
 			return serializer.data
+			
 		except QuizTaker.DoesNotExist:
 			return None
 
