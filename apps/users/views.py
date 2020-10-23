@@ -12,7 +12,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 
 from django.http import JsonResponse
-
+from django.core.exceptions import PermissionDenied
 
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
@@ -30,7 +30,7 @@ from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from .serializers import ChangePasswordSerializer
 from django.contrib.sites.shortcuts import get_current_site
 
-
+current_site = "https://littapi.herokuapp.com"
     # ========================#
     # Activate account (email verify)
     # ========================#
@@ -70,7 +70,7 @@ class UserSerializer(serializers.ModelSerializer):
 
         user.save()
 
-        current_site = 'http//:127.0.0.1'
+        # current_site = 'https://littapi.herokuapp.com'
 
         subject = 'Activate Your LMS Account'
         message = {
@@ -110,14 +110,33 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = get_user_model().objects.all()
     serializer_class = UserSerializer
 
+    def list(self, request, *args, **kwargs):
+        raise PermissionDenied()
 
 
-@permission_classes([IsAuthenticated])
+class CurrentUserView(APIView):
+    def get(self, request):
+        serializer = UserSerializer(request.user)
+        return Response(serializer.data)
+
+
+
+# @permission_classes([IsAuthenticated])
 class UserProfileView(APIView):
     def get(self, request, pk):
-        profile = UserProfile.objects.get(user=request.user)
+        profile = UserProfile.objects.get(user=pk)
         serializer = UserProfileSerializer(profile)
         return Response(serializer.data)
+
+    def post(self, request, pk):
+        # name, bio, github_username, avatar
+        profile = UserProfile(
+            **request.data
+        )
+        profile.user = get_user_model().objects.get(pk=pk)
+        profile.save()
+        
+        return Response('Success')
 
 
 # ==================================================
@@ -176,7 +195,7 @@ def password_reset_token_created(sender, instance, reset_password_token, *args, 
 
     email_plaintext_message = "{}?token={}".format(reverse('password_reset:reset-password-request'), reset_password_token.key)
 
-    current_site = get_current_site(request)
+    # current_site = get_current_site(request)
 
     subject = "Password Reset for {title}".format(title="LiTT LMS")
     
