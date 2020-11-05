@@ -138,9 +138,14 @@ class SubmitQuizAPI(generics.GenericAPIView):
 			if users_answer.answer == answer:
 				correct_answers += 1
 
-		quiztaker.score = int(
+		quiztaker.percentage = int(
 			correct_answers / quiztaker.quiz.question_set.count() * 100)
+
+		quiztaker.score = int(correct_answers)
+
+		#Debug	
 		print(quiztaker.score)
+
 		quiztaker.save()
 
 		return Response(self.get_serializer(quiz).data)
