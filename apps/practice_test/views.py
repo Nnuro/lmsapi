@@ -86,11 +86,11 @@ class SaveUsersAnswer(generics.UpdateAPIView):
 		question = get_object_or_404(Question, id=question_id)
 		answer = get_object_or_404(Answer, id=answer_id)
 
-		if quiztaker.completed:
-			return Response({
-				"message": "This quiz is already complete. you can't answer any more questions"},
-				status=status.HTTP_412_PRECONDITION_FAILED
-			)
+		# if quiztaker.completed:
+		# 	return Response({
+		# 		"message": "This quiz is already complete. you can't answer any more questions"},
+		# 		status=status.HTTP_412_PRECONDITION_FAILED
+		# 	)
 
 		obj = get_object_or_404(UsersAnswer, quiz_taker=quiztaker, question=question)
 		obj.answer = answer
@@ -115,11 +115,11 @@ class SubmitQuizAPI(generics.GenericAPIView):
 
 		quiz = Quiz.objects.get(slug=self.kwargs['slug'])
 
-		if quiztaker.completed:
-			return Response({
-				"message": "This quiz is already complete. You can't submit again"},
-				status=status.HTTP_412_PRECONDITION_FAILED
-			)
+		# if quiztaker.completed:
+		# 	return Response({
+		# 		"message": "This quiz is already complete. You can't submit again"},
+		# 		status=status.HTTP_412_PRECONDITION_FAILED
+		# 	)
 
 		if answer_id is not None:
 			answer = get_object_or_404(Answer, id=answer_id)
