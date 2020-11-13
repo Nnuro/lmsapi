@@ -9,7 +9,7 @@ from rest_framework_simplejwt.views import (TokenObtainPairView, TokenRefreshVie
 
 from django.contrib.auth import views as auth_views
 
-from apps.practice_test.views import MyQuizListAPI, QuizListAPI, QuizDetailAPI, SaveUsersAnswer, SubmitQuizAPI
+from apps.practice_test.views import MyQuizListAPI, QuizListAPI, QuizDetailAPI, SaveUsersAnswer, SubmitQuizAPI, QuizResultAPI
     
 app_name = 'app.users'
 
@@ -68,6 +68,7 @@ urlpatterns = [
    	path("quizzes/", QuizListAPI.as_view()),
    	path("save-answer/", SaveUsersAnswer.as_view()),
    	re_path(r"quizzes/(?P<slug>[\w\-]+)/$", QuizDetailAPI.as_view()),
+	re_path(r"quizzes/(?P<slug>[\w\-]+)/$", QuizResultAPI.as_view()),
    	re_path(r"quizzes/(?P<slug>[\w\-]+)/submit/$", SubmitQuizAPI.as_view()),
 ]
 
