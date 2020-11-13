@@ -77,25 +77,34 @@ class QuizResultAPI(generics.RetrieveAPIView):
 		permissions.IsAuthenticated
 	]
 
-	def get(self, *args, **kwargs):
-		slug = self.kwargs["slug"]
-		quiz = get_object_or_404(Quiz, slug=slug)
-		last_question = None
-		obj, created = QuizTaker.objects.get_or_create(
-			user=self.request.user, quiz=quiz)
-		if created:
-			for question in Question.objects.filter(quiz=quiz):
-				UsersAnswer.objects.create(quiz_taker=obj, question=question)
-		else:
-			last_question = UsersAnswer.objects.filter(
-				quiz_taker=obj, answer__isnull=False)
-			if last_question.count() > 0:
-				last_question = last_question.last().question.id
-			else:
-				last_question = None
+	def post(self, request, *args, **kwargs):
+		quiztaker_id = request.data['quiztaker']
 
-		return Response({'quiz': self.get_serializer(quiz, context={'request': self.request}).data, 'last_question_id': last_question})
+		quiztaker = get_object_or_404(QuizTaker, id=quiztaker_id)
 
+		quiz = Quiz.objects.get(slug=self.kwargs['slug'])
+
+		quiztaker.completed = True
+		correct_answers = 0
+
+		for users_answer in UsersAnswer.objects.filter(quiz_taker=quiztaker):
+			answer = Answer.objects.get(question=users_answer.question, is_correct=True)
+			print(answer)
+			print(users_answer.answer)
+			if users_answer.answer == answer:
+				correct_answers += 1
+
+		quiztaker.percentage = int(
+			correct_answers / quiztaker.quiz.question_set.count() * 100)
+
+		quiztaker.score = int(correct_answers)
+
+		#Debug	
+		print(quiztaker.score)
+
+		quiztaker.save()
+
+		return Response(self.get_serializer(quiz).data)
 
 class SaveUsersAnswer(generics.UpdateAPIView):
 	serializer_class = UsersAnswerSerializer
