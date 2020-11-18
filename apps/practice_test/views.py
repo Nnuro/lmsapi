@@ -89,22 +89,18 @@ class QuizResultAPI(generics.RetrieveAPIView):
 
 		for users_answer in UsersAnswer.objects.filter(quiz_taker=quiztaker):
 			answer = Answer.objects.get(question=users_answer.question, is_correct=True)
-			print(answer)
-			print(users_answer.answer)
 			if users_answer.answer == answer:
 				correct_answers += 1
+			users_answer.answer = None
 
 		quiztaker.percentage = int(
 			correct_answers / quiztaker.quiz.question_set.count() * 100)
 
 		quiztaker.score = int(correct_answers)
-
-		#Debug	
-		print(quiztaker.score)
-
 		quiztaker.save()
 
 		return Response(self.get_serializer(quiz).data)
+
 
 class SaveUsersAnswer(generics.UpdateAPIView):
 	serializer_class = UsersAnswerSerializer
