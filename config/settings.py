@@ -59,7 +59,7 @@ INSTALLED_APPS = [
     'nested_admin',
     #Debug 
     'debug_toolbar',
-     # Custom App routes
+    # Custom App routes
     'apps.users',
     'apps.courses',
     'apps.course_modules',
@@ -68,6 +68,7 @@ INSTALLED_APPS = [
     'apps.badge',
     'apps.practice_test',
     'apps.feedback',
+    'apps.userstatistics'
 ]
 
 SITE_ID = 1
@@ -139,28 +140,29 @@ REST_FRAMEWORK = {
 }
 
 # MySQL remote database
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'k25DSFnXJL',
-#         'USER': 'k25DSFnXJL',
-#         'PASSWORD': 'LRPiEkjAyT',
-#         'HOST': 'remotemysql.com',
-#         'PORT': '3306',
-#     }
-# }
-
-#  Running on local host
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'lmsapi',
+        'NAME': 'k25DSFnXJL',
         'USER': 'root',
         'PASSWORD': '',
-        'HOST': '127.0.0.1',
+        # 'HOST': 'remotemysql.com',
+        'HOST': 'localhost',
         'PORT': '3306',
     }
 }
+
+#  Running on local host
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'lmsapi',
+#         'USER': 'root',
+#         'PASSWORD': '',
+#         'HOST': '127.0.0.1',
+#         'PORT': '3306',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -268,5 +270,7 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=3),
 }
 
+#increase fields upload limit
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 10240
 
 django_heroku.settings(locals())

@@ -46,6 +46,8 @@ class QuizTaker(models.Model):
 	score = models.IntegerField(default=0)
 	percentage = models.IntegerField(default=0)
 	completed = models.BooleanField(default=False)
+	total_quizzes_taken = models.IntegerField(default=0)
+	avg_quiz_score = models.IntegerField(default=0)
 	date_finished = models.DateTimeField(null=True)
 	timestamp = models.DateTimeField(auto_now_add=True)
 
