@@ -25,7 +25,7 @@ class Quiz(models.Model):
 class Question(models.Model):
 	quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
 	label = models.TextField()
-	image_url = models.TextField()
+	image_url = models.TextField(blank=True, null=True)
 	order = models.IntegerField(default=0)
 
 	def __str__(self):

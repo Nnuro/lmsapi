@@ -2,6 +2,15 @@
 # Created by https://www.toptal.com/developers/gitignore/api/venv,django,visualstudiocode
 # Edit at https://www.toptal.com/developers/gitignore?templates=venv,django,visualstudiocode
 
+### Vagrant ###
+# General
+.vagrant/
+
+# Log files (if you are creating logs in debug mode, uncomment this)
+# *.log
+
+### Vagrant Patch ###
+*.box
 ### Django ###
 *.log
 *.pot
