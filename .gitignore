@@ -6,6 +6,9 @@
 # General
 .vagrant/
 
+
+data-acp.txt
+db_new.sql
 # Log files (if you are creating logs in debug mode, uncomment this)
 # *.log
 

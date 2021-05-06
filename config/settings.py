@@ -146,7 +146,6 @@ DATABASES = {
         'NAME': 'system_db',
         'USER': 'root',
         'PASSWORD': 'user1024',
-        # 'HOST': 'remotemysql.com',
         'HOST': 'localhost',
         'PORT': '',
     }
@@ -216,7 +215,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'test.littlms@gmail.com'
-EMAIL_HOST_PASSWORD = 'litt2020'
+EMAIL_HOST_PASSWORD = ''
 
 
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
