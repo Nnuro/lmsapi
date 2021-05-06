@@ -18,6 +18,11 @@ from corsheaders.defaults import default_headers
 
 from datetime import timedelta
 
+import environ
+# Initialise environment variables
+env = environ.Env()
+environ.Env.read_env()
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -26,8 +31,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'k(1mumqm#pn^5pf&+44o8lz*3-ajm((v51x@o130k0x7u@2jto'
-
+# SECRET_KEY = 'k(1mumqm#pn^5pf&+44o8lz*3-ajm((v51x@o130k0x7u@2jto'
+SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -144,24 +149,12 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'system_db',
-        'USER': 'root',
-        'PASSWORD': 'user1024',
+        'USER': env('DB_USER'),
+        'PASSWORD': env('DB_PASSWORD'),
         'HOST': 'localhost',
         'PORT': '',
     }
 }
-
-#  Running on local host
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'lmsapi',
-#         'USER': 'root',
-#         'PASSWORD': '',
-#         'HOST': '127.0.0.1',
-#         'PORT': '3306',
-#     }
-# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -214,8 +207,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'test.littlms@gmail.com'
-EMAIL_HOST_PASSWORD = ''
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 
 
 ACCOUNT_AUTHENTICATION_METHOD = 'email'

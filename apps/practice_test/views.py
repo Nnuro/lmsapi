@@ -32,15 +32,7 @@ class QuizListAPI(generics.ListAPIView):
 	]
 
 	def get_queryset(self, *args, **kwargs):
-		queryset = Quiz.objects.filter(roll_out=True).exclude(
-			quiztaker__user=self.request.user)
-		query = self.request.GET.get("q")
-
-		if query:
-			queryset = queryset.filter(
-				Q(name__icontains=query) |
-				Q(description__icontains=query)
-			).distinct()
+		queryset = Quiz.objects.all()
 
 		return queryset
 
